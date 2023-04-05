@@ -1,0 +1,33 @@
+{
+  "name": "projeto12-tweteroo",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "Projeto back-end API do Tweteroo, um clone do Twitter!",
+  "main": "script.js",
+  "scripts": {
+    "test": "node script.js",
+    "start": "node ./src/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Yokuny/projeto12-tweteroo.git"
+  },
+  "keywords": [
+    "nodejs",
+    "express",
+    "tweet",
+    "twitter",
+    "API"
+  ],
+  "author": "Yokuny",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Yokuny/projeto12-tweteroo/issues"
+  },
+  "homepage": "https://github.com/Yokuny/projeto12-tweteroo#readme",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "express": "^4.18.2"
+  }
+}
