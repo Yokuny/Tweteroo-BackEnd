@@ -6,24 +6,27 @@ app.use(body.urlencoded({ extended: false }));
 app.use(body.json());
 app.use(cors());
 
-let user = [];
+let user = {};
 let tweets = [];
 
 const insertUserAvatar = (obj, avatar) => {
-  return obj.map((item) => {
-    item.username, avatar, item.tweet;
-  });
+  if (obj.length === 0) return obj;
+  return obj.map((item) => ({
+    username: item.username,
+    avatar: avatar,
+    tweet: item.tweet,
+  }));
 };
 const pictureValidation = async (url) => {
   try {
     const response = await fetch(url);
     const contentType = response.headers.get("content-type");
     if (response.ok && contentType && contentType.startsWith("image/")) {
-      return true;
+      return false;
     }
-    return false;
+    return true;
   } catch {
-    return false;
+    return true;
   }
 };
 const reqValidation = (...data) => {
@@ -37,35 +40,29 @@ const reqValidation = (...data) => {
 
 app.post("/sign-up", async (req, res) => {
   const { username, avatar } = req.body;
-  if (reqValidation(username, avatar)) return res.status(400).send("Todos os campos são obrigatórios!");
-  if ((await pictureValidation(avatar)) && username.length > 3) {
-    user.push({ username, avatar });
-    res.status(201).send("OK");
+  if (reqValidation(username, avatar) || (await pictureValidation(avatar))) {
+    return res.status(400).send("Todos os campos são obrigatórios!");
   } else {
-    res.status(400).send("Todos os campos são obrigatórios!");
-    console.log("Todos os campos são obrigatórios!");
+    user = { username, avatar };
+    return res.status(201).send("OK");
   }
 });
 app.post("/tweets", (req, res) => {
   const { username, tweet } = req.body;
   if (reqValidation(username, tweet)) return res.status(400).send("Todos os campos são obrigatórios!");
-  if (user.some((user) => user.username === username)) {
+  if (user.username === username) {
     tweets.push({ username, tweet });
     res.status(201).send("OK");
-  } else {
-    res.status(401).send("É necessário login!");
-    console.log("É necessário login!");
-  }
+  } else res.status(401).send("É necessário login!");
 });
-
 app.get("/tweets", (req, res) => {
   let count = 0;
   let firstTen = [];
   for (let i = 0; i < tweets.length; i++) {
-    count++;
     if (count <= 10) firstTen.push(tweets[tweets.length - i - 1]);
+    count++;
   }
-  res.send(insertUserAvatar(firstTen, user[0].avatar));
+  return res.send(insertUserAvatar(firstTen, user.avatar));
 });
 
 app.listen(5000, () => console.log("http://localhost:5000/"));
