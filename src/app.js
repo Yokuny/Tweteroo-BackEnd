@@ -6,7 +6,27 @@ app.use(body.urlencoded({ extended: false }));
 app.use(body.json());
 app.use(cors());
 
-let users = [];
+let user = [
+  {
+    username: "bobesponja",
+    avatar:
+      "https://cdn.shopify.com/s/files/1/0150/0643/3380/files/Screen_Shot_2019-07-01_at_11.35.42_AM_370x230@2x.png",
+  },
+];
+let tweets = [
+  {
+    username: "bobesponja",
+    tweet: "Eu amo hambúrguer de siri!",
+  },
+  {
+    username: "bobesponja",
+    tweet: "patrick star é o melhor amigo que eu poderia ter!",
+  },
+  {
+    username: "bobesponja",
+    tweet: "ehhehehehe!",
+  },
+];
 
 const pictureValidation = async (url) => {
   try {
@@ -20,40 +40,34 @@ const pictureValidation = async (url) => {
     return false;
   }
 };
-
-app.post("/sign-up", (req, res, next) => {
+app.post("/sign-up", async (req, res) => {
   const { username, avatar } = req.body;
-  if (pictureValidation(avatar) && username.length < 3) {
+  if ((await pictureValidation(avatar)) && username.length > 3) {
+    user.push({ username, avatar });
+    res.send("OK");
+  } else {
     res.status(400).send("UNAUTHORIZED");
     console.log("UNAUTHORIZED");
-  } else {
-    users.push({ username, avatar });
-    res.send("OK");
-    next();
   }
-  //   app.post("/tweets", (req, res) => {
-  //     /*
-  //       (pelo body da request), os parâmetros username e tweet:
-  //       {
-  //           username: "bobesponja",
-  //           tweet: "Eu amo hambúrguer de siri!"
-  //       }
-  //       []Salvar esse tweet num array de tweets do servidor
-  //       */
-  //     res.send("OK");
-  //   });
 });
+app.post("/tweets", (req, res) => {
+  const { username, tweet } = req.body;
+  if (user.some((user) => user.username === username)) {
+    tweets.push({ username, tweet });
+    res.send("OK");
+  } else {
+    res.status(400).send("UNAUTHORIZED");
+    console.log("UNAUTHORIZED");
+  }
+});
+
 app.get("/tweets", (req, res) => {
-  /*[]Retornar os 10 últimos tweets publicados
-    [
-    	{
-    		username: "bobesponja",
-    		avatar: "https://link.png",
-    		tweet: "Eu amo hambúrguer de siri!"
-    	}
-    ]
-    []  Caso não tenha nenhum tweet cadastrado, retorna um array vazio
-*/
+  if (user.some((user) => user.username === username)) {
+    res.status(200).send(tweets);
+  } else {
+    res.status(400).send("UNAUTHORIZED");
+    console.log("UNAUTHORIZED");
+  }
 });
 app.listen(5000, () => {
   console.log("http://localhost:5000/");
