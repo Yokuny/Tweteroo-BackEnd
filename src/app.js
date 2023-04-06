@@ -6,13 +6,7 @@ app.use(body.urlencoded({ extended: false }));
 app.use(body.json());
 app.use(cors());
 
-let user = [
-  {
-    username: "bobesponja",
-    tweet:
-      "https://cdn.shopify.com/s/files/1/0150/0643/3380/files/Screen_Shot_2019-07-01_at_11.35.42_AM_370x230@2x.png",
-  },
-];
+let user = [];
 let tweets = [];
 
 const insertUserAvatar = (obj, avatar) => {
@@ -73,6 +67,5 @@ app.get("/tweets", (req, res) => {
   }
   res.send(insertUserAvatar(firstTen, user[0].avatar));
 });
-app.listen(5000, () => {
-  console.log("http://localhost:5000/");
-});
+
+app.listen(5000, () => console.log("http://localhost:5000/"));
