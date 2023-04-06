@@ -40,7 +40,7 @@ const reqValidation = (...data) => {
 
 app.post("/sign-up", async (req, res) => {
   const { username, avatar } = req.body;
-  if (reqValidation(username, avatar) || (await pictureValidation(avatar))) {
+  if (!username || !avatar || reqValidation(username, avatar) || (await pictureValidation(avatar))) {
     return res.status(400).send("Todos os campos são obrigatórios!");
   } else {
     user = { username, avatar };
@@ -49,18 +49,17 @@ app.post("/sign-up", async (req, res) => {
 });
 app.post("/tweets", (req, res) => {
   const { username, tweet } = req.body;
-  if (reqValidation(username, tweet)) return res.status(400).send("Todos os campos são obrigatórios!");
+  if (!username || !tweet || reqValidation(username, tweet))
+    return res.status(400).send("Todos os campos são obrigatórios!");
   if (user.username === username) {
     tweets.push({ username, tweet });
     res.status(201).send("OK");
   } else res.status(401).send("É necessário login!");
 });
 app.get("/tweets", (req, res) => {
-  let count = 0;
   let firstTen = [];
   for (let i = 0; i < tweets.length; i++) {
-    if (count <= 10) firstTen.push(tweets[tweets.length - i - 1]);
-    count++;
+    if (firstTen.length <= 10) firstTen.push(tweets[tweets.length - i - 1]);
   }
   return res.send(insertUserAvatar(firstTen, user.avatar));
 });
