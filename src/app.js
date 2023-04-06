@@ -16,6 +16,14 @@ let user = [
 let tweets = [
   {
     username: "bobesponja",
+    tweet: "Eu dddddddddddi!",
+  },
+  {
+    username: "bobesponja",
+    tweet: "sssssssssssu poderia ter!",
+  },
+  {
+    username: "bobesponja",
     tweet: "Eu amo hambúrguer de siri!",
   },
   {
@@ -24,10 +32,42 @@ let tweets = [
   },
   {
     username: "bobesponja",
-    tweet: "ehhehehehe!",
+    tweet: "vvvvvvvvvvvvvvvvv!",
+  },
+  {
+    username: "bobesponja",
+    tweet: "aaaaaaaaaaaaaa!",
+  },
+  {
+    username: "bobesponja",
+    tweet: "ddddddddddddddddd!",
+  },
+  {
+    username: "bobesponja",
+    tweet: "asdasdasdd!",
+  },
+  {
+    username: "bobesponja",
+    tweet: "asdasd",
+  },
+  {
+    username: "bobesponja",
+    tweet: "asdasdasd",
+  },
+  {
+    username: "bobesponja",
+    tweet: "11222",
+  },
+  {
+    username: "bobesponja",
+    tweet: "2222222222222222",
   },
 ];
-
+const insertUserAvatar = (obj, avatar) => {
+  return obj.map((item) => {
+    return { ...item, avatar };
+  });
+};
 const pictureValidation = async (url) => {
   try {
     const response = await fetch(url);
@@ -66,12 +106,13 @@ app.post("/tweets", (req, res) => {
 });
 
 app.get("/tweets", (req, res) => {
-  if (user.some((user) => user.username === username)) {
-    res.status(200).send(tweets);
-  } else {
-    res.status(400).send("UNAUTHORIZED");
-    console.log("UNAUTHORIZED");
+  let count = 0;
+  let firstTen = [];
+  for (let i = 0; i < tweets.length; i++) {
+    count++;
+    if (count <= 10) firstTen.push(tweets[tweets.length - i - 1]);
   }
+  res.send(insertUserAvatar(firstTen, user[0].avatar));
 });
 app.listen(5000, () => {
   console.log("http://localhost:5000/");
