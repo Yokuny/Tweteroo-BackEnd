@@ -6,67 +6,10 @@ app.use(body.urlencoded({ extended: false }));
 app.use(body.json());
 app.use(cors());
 
-let user = [
-  {
-    username: "bobesponja",
-    avatar:
-      "https://cdn.shopify.com/s/files/1/0150/0643/3380/files/Screen_Shot_2019-07-01_at_11.35.42_AM_370x230@2x.png",
-  },
-];
-let tweets = [
-  {
-    username: "bobesponja",
-    tweet: "Eu dddddddddddi!",
-  },
-  {
-    username: "bobesponja",
-    tweet: "sssssssssssu poderia ter!",
-  },
-  {
-    username: "bobesponja",
-    tweet: "Eu amo hambúrguer de siri!",
-  },
-  {
-    username: "bobesponja",
-    tweet: "patrick star é o melhor amigo que eu poderia ter!",
-  },
-  {
-    username: "bobesponja",
-    tweet: "vvvvvvvvvvvvvvvvv!",
-  },
-  {
-    username: "bobesponja",
-    tweet: "aaaaaaaaaaaaaa!",
-  },
-  {
-    username: "bobesponja",
-    tweet: "ddddddddddddddddd!",
-  },
-  {
-    username: "bobesponja",
-    tweet: "asdasdasdd!",
-  },
-  {
-    username: "bobesponja",
-    tweet: "asdasd",
-  },
-  {
-    username: "bobesponja",
-    tweet: "asdasdasd",
-  },
-  {
-    username: "bobesponja",
-    tweet: "11222",
-  },
-  {
-    username: "bobesponja",
-    tweet: "2222222222222222",
-  },
-];
+let user = [];
+let tweets = [];
 const insertUserAvatar = (obj, avatar) => {
-  return obj.map((item) => {
-    return { ...item, avatar };
-  });
+  return obj.map((item) => ({ ...item, avatar }));
 };
 const pictureValidation = async (url) => {
   try {
