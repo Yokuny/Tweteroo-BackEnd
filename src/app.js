@@ -6,10 +6,19 @@ app.use(body.urlencoded({ extended: false }));
 app.use(body.json());
 app.use(cors());
 
-let user = [];
+let user = [
+  {
+    username: "bobesponja",
+    tweet:
+      "https://cdn.shopify.com/s/files/1/0150/0643/3380/files/Screen_Shot_2019-07-01_at_11.35.42_AM_370x230@2x.png",
+  },
+];
 let tweets = [];
+
 const insertUserAvatar = (obj, avatar) => {
-  return obj.map((item) => ({ ...item, avatar }));
+  return obj.map((item) => {
+    item.username, avatar, item.tweet;
+  });
 };
 const pictureValidation = async (url) => {
   try {
@@ -23,10 +32,18 @@ const pictureValidation = async (url) => {
     return false;
   }
 };
+const reqValidation = (...data) => {
+  data.forEach((info) => {
+    if (!info) return true;
+    if (info.length < 1) return true;
+    if (typeof info !== "string") return true;
+  });
+  return false;
+};
+
 app.post("/sign-up", async (req, res) => {
   const { username, avatar } = req.body;
-  if (!username || !avatar || avatar.length < 1)
-    return res.status(400).send("Todos os campos são obrigatórios!");
+  if (reqValidation(username, avatar)) return res.status(400).send("Todos os campos são obrigatórios!");
   if ((await pictureValidation(avatar)) && username.length > 3) {
     user.push({ username, avatar });
     res.status(201).send("OK");
@@ -37,8 +54,7 @@ app.post("/sign-up", async (req, res) => {
 });
 app.post("/tweets", (req, res) => {
   const { username, tweet } = req.body;
-  if (!username || !tweet || tweet.length < 1)
-    return res.status(400).send("Todos os campos são obrigatórios!");
+  if (reqValidation(username, tweet)) return res.status(400).send("Todos os campos são obrigatórios!");
   if (user.some((user) => user.username === username)) {
     tweets.push({ username, tweet });
     res.status(201).send("OK");
