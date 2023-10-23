@@ -1,6 +1,7 @@
-const pictureValidation = async (url) => {
+export const pictureValidation = async (url) => {
   try {
     const response = await fetch(url);
+
     const contentType = response.headers.get("content-type");
     if (response.ok && contentType && contentType.startsWith("image/")) {
       return false;
@@ -10,4 +11,3 @@ const pictureValidation = async (url) => {
     return true;
   }
 };
-export default pictureValidation;
