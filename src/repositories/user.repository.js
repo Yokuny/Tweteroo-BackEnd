@@ -1,14 +1,7 @@
-let users = [];
+import { User } from "../database/index.js";
 
-export const getUser = (username) => {
-  return users.filter((user) => user.username === username);
-};
+export const signup = (username, avatar) => User.create({ username, avatar });
 
-export const signup = (username, avatar) => {
-  users.push({ username, avatar });
-  return "OK";
-};
+export const getUser = (username) => User.findOne({ username });
 
-export const getAllUsers = () => {
-  return users;
-};
+export const getAllUsers = () => User.find({}, { username: 1, avatar: 1, _id: 0 });

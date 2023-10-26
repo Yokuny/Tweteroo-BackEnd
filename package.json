@@ -1,12 +1,12 @@
 {
-  "name": "tweteroo",
+  "name": "tweteroo-backend",
   "type": "module",
   "version": "1.0.0",
   "description": "Projeto back-end API do Tweteroo, semelhante ao Twitter!",
   "main": "script.js",
   "scripts": {
-    "dev": "node ./src/app.js",
-    "start": "nodemon ./src/app.js"
+    "dev": "nodemon ./src/app.js ",
+    "start": "node ./src/app.js"
   },
   "repository": {
     "type": "git",
@@ -26,9 +26,12 @@
   },
   "homepage": "https://github.com/Yokuny/Tweteroo#readme",
   "dependencies": {
-    "body-parser": "^1.20.2",
-    "cors": "^2.8.5",
     "express": "^4.18.2",
+    "mongodb": "^6.2.0",
+    "mongoose": "^7.6.3",
+    "body-parser": "^1.20.2",
+    "dotenv": "^16.3.1",
+    "cors": "^2.8.5",
     "joi": "^17.11.0"
   },
   "devDependencies": {

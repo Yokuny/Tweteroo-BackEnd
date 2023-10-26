@@ -1,25 +1,6 @@
-let tweets = [];
+import { Tweet } from "../database/index.js";
 
-export const postTweet = (username, tweet) => {
-  const newTweet = {
-    username,
-    tweet,
-    date: new Date(),
-  };
+export const postTweet = (username, tweet) => Tweet.create({ username, tweet, createdAt: new Date() });
 
-  tweets.push(newTweet);
-  return "OK";
-};
-
-export const getTweets = () => {
-  let tenTweets = [];
-  const lastTweet = tweets.length - 1;
-
-  for (let i = 0; i <= lastTweet; i++) {
-    if (tenTweets.length < 10) {
-      tenTweets.push(tweets[lastTweet - i]);
-    }
-  }
-
-  return tenTweets;
-};
+export const getTweets = () =>
+  Tweet.find({}, { username: 1, tweet: 1, _id: 0 }).sort({ createdAt: -1 }).limit(10);

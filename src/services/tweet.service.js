@@ -2,19 +2,19 @@ import * as repository from "../repositories/index.js";
 import { insertUserAvatar } from "../utils/index.js";
 
 export const postTweet = async ({ username, tweet }) => {
-  const user = repository.getUser(username);
-  if (user.length === 0) return "Usuário não existe!";
+  const user = await repository.getUser(username);
+  if (!user) return "Usuário não existe!";
 
-  return repository.postTweet(user[0].username, tweet);
+  await repository.postTweet(user.username, tweet);
+  return "Tweet criado com sucesso!";
 };
 
 export const getTweets = async (username) => {
-  const user = repository.getUser(username);
+  const user = await repository.getUser(username);
+  if (!user) return "Usuário não existe!";
 
-  if (user.length === 0) return "Usuário não existe!";
-
-  const tenTweets = repository.getTweets();
-  const users = repository.getAllUsers();
+  const tenTweets = await repository.getTweets();
+  const users = await repository.getAllUsers();
 
   return insertUserAvatar(tenTweets, users);
 };

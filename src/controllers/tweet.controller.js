@@ -3,7 +3,7 @@ import * as service from "../services/index.js";
 export const postTweet = async (req, res) => {
   const result = await service.postTweet(req.body);
 
-  if (result === "Usuário não existe!") return res.status(400).send(result);
+  if (result === "Usuário não existe!") return res.status(403).send(result);
 
   return res.status(201).send(result);
 };

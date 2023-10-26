@@ -4,8 +4,9 @@ import { pictureValidation } from "../utils/index.js";
 export const signup = async ({ username, avatar }) => {
   if (await pictureValidation(avatar)) return "Imagem inválida!";
 
-  const user = repository.getUser(username);
-  if (user.length > 0) return "Usuário já existe!";
+  const user = await repository.getUser(username);
+  if (user) return "Usuário já existe!";
 
-  return repository.signup(username, avatar);
+  await repository.signup(username, avatar);
+  return "Usuário criado com sucesso!";
 };
