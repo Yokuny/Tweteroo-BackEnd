@@ -6,5 +6,5 @@ export const signup = async (req, res) => {
   if (result === "Avatar inválido!") return res.status(400).send(result);
   if (result === "Usuário já existe!") return res.status(409).send(result);
 
-  return res.status(201).send(result);
+  return res.status(201).send({ message: result });
 };
