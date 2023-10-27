@@ -6,6 +6,7 @@ export const postTweet = async ({ username, tweet }) => {
   if (!user) return "Usuário não existe!";
 
   await repository.postTweet(user.username, tweet);
+
   return "Tweet criado com sucesso!";
 };
 

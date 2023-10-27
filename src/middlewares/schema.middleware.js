@@ -12,14 +12,12 @@ export function validateQuery(schema) {
 
 function validate(schema, type) {
   return (req, res, next) => {
-    const { error } = schema.validate(req[type], {
-      abortEarly: false,
-    });
+    const { error } = schema.validate(req[type]);
 
     if (!error) {
       next();
     } else {
-      res.status(400).send(error.details.map((d) => d.message));
+      res.status(400).send({ message: error.details[0].message });
     }
   };
 }
