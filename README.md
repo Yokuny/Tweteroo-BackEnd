@@ -46,25 +46,21 @@ _Para rodar o projeto ambos Front-end e Back-end devem estar rodando._
 ### **Como rodar o back-end**
 
 1. Clone o repositório do back-end:
-<br>
     ```bash
     git clone https://github.com/Yokuny/Tweteroo-BackEnd
     ```
-2. Preencha `.env` como `.env.example`:
-<br>
+2. Preencha `.env` como `.env.example`
     ```bash
     MONGODB_URI # MongoDB conexão string
     PORT # Porta do servidor que será usada no front-end
     ```
 
 3. Instale as dependências:
-<br>
     ```bash
     npm install
     ```
 
-4. Rode o projeto em modo de desenvolvimento:
-<br>
+5. Rode o projeto em modo de desenvolvimento:
     ```bash
     npm run start
     ```
@@ -72,25 +68,21 @@ _Para rodar o projeto ambos Front-end e Back-end devem estar rodando._
 ### **Como rodar o front-end**
 
 1. Clone o repositório do projeto:
-<br>
     ```bash
     git clone https://github.com/Yokuny/Tweteroo
     ```
 
 2. Instale as dependências:
-<br>
     ```bash
     npm install
     ```
 
 3. Confira `src/environments/environment.ts` tem o mesmo valor de `port`:
-<br>
     ```bash=
     apiKey: 'http://localhost:5000/',
     ```
 
 4. Rode o projeto em modo de desenvolvimento:
-<br>
     ```bash
     npm run start
     ```
