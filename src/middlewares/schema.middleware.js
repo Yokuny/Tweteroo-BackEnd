@@ -12,12 +12,20 @@ export function validateQuery(schema) {
 
 function validate(schema, type) {
   return (req, res, next) => {
-    const { error } = schema.validate(req[type]);
-
-    if (!error) {
+    try {
+      schema.parse(req[type]);
       next();
-    } else {
-      res.status(400).send({ message: error.details[0].message });
+    } catch (error) {
+      const errArray = error.errors;
+      for (const err of errArray) {
+        const { path, received, message, expected } = err;
+
+        const paramMessage = type === "query" ? "Na query" : type === "params" ? "Nos params" : "No body";
+        const errMessage = `${paramMessage}: '${path}' recebeu '${received}' com erro:'${message}'.
+        ${expected ? ` Esperado: '${expected}'` : ""}`;
+
+        return res.status(400).send({ message: errMessage });
+      }
     }
   };
 }

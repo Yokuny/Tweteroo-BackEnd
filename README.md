@@ -36,7 +36,7 @@ Um projeto simples e completo para aprender Angular e Node</h4>
 - **[Express](https://expressjs.com/)**
 - **[MongoDB](https://www.mongodb.com)**
 - **[Mongoosejs](https://mongoosejs.com/)**
-- **[Joi](https://joi.dev/)**
+- **[Zod](https://zod.dev/)**
 
 
 ## Como rodar o projeto
