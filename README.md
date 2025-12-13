@@ -87,4 +87,3 @@ _Para rodar o projeto ambos Front-end e Back-end devem estar rodando._
     npm run start
     ```
 <br>
-
